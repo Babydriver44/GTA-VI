@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#100019">
+<title>GTA VI Countdown</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:#09000f;color:#fff}
+body{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(255,79,216,.28),transparent 35%),
+    radial-gradient(circle at 80% 25%,rgba(57,231,255,.22),transparent 35%),
+    linear-gradient(145deg,#09000f 0%,#22002d 48%,#080012 100%);
+}
+.app{width:min(92vw,560px);padding:28px 18px;text-align:center}
+.frame{
+  position:relative;padding:28px 18px 24px;border:2px solid #ff4fd8;border-radius:28px;
+  background:linear-gradient(180deg,rgba(255,79,216,.09),rgba(57,231,255,.04));
+  box-shadow:0 0 28px rgba(255,79,216,.25), inset 0 0 30px rgba(168,85,247,.10);
+}
+h1{margin:0;font-size:15px;letter-spacing:4px}
+.vi{font-size:68px;line-height:.9;font-weight:900;letter-spacing:-5px;color:#ff4fd8;text-shadow:0 0 12px #ff4fd8,0 0 30px rgba(255,79,216,.6)}
+.date{margin-top:12px;font-size:11px;letter-spacing:3px;color:#ff8be8}
+.count{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:22px}
+.box{padding:12px 4px;border:1px solid rgba(255,79,216,.75);border-radius:14px;background:rgba(255,79,216,.08)}
+.num{font-size:clamp(22px,7vw,38px);font-weight:900;line-height:1;color:#fff;text-shadow:0 0 10px rgba(255,255,255,.45)}
+.lab{margin-top:6px;font-size:8px;letter-spacing:1.5px;color:#ff4fd8;font-weight:800}
+.city{margin-top:20px;font-size:20px;font-weight:900;letter-spacing:5px;color:#39e7ff;text-shadow:0 0 10px rgba(57,231,255,.75)}
+.sub{margin-top:6px;font-size:9px;letter-spacing:3px;color:#b58cff}
+.palms{position:absolute;left:12px;bottom:8px;font-size:20px;opacity:.75}
+.palms.r{left:auto;right:12px}
+@media(max-width:380px){.frame{padding:24px 10px 22px}.count{gap:5px}.box{padding:10px 2px}.lab{font-size:7px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="frame">
+    <div class="vi">VI</div>
+    <h1>GRAND THEFT AUTO</h1>
+    <div class="date">19 NOVEMBRE 2026</div>
+    <div class="count" aria-live="polite">
+      <div class="box"><div id="days" class="num">--</div><div class="lab">JOURS</div></div>
+      <div class="box"><div id="hours" class="num">--</div><div class="lab">HEURES</div></div>
+      <div class="box"><div id="minutes" class="num">--</div><div class="lab">MIN</div></div>
+      <div class="box"><div id="seconds" class="num">--</div><div class="lab">SEC</div></div>
+    </div>
+    <div class="city">VICE CITY</div>
+    <div class="sub">🌴 MIAMI • 2026 🌴</div>
+    <div class="palms">🌴</div><div class="palms r">🌴</div>
+  </div>
+</div>
+<script>
+const target = new Date("2026-11-19T00:00:00+01:00").getTime();
+const $ = id => document.getElementById(id);
+function tick(){
+  let d = Math.max(0, target - Date.now());
+  const total = Math.floor(d/1000);
+  const days = Math.floor(total/86400);
+  const hours = Math.floor(total%86400/3600);
+  const minutes = Math.floor(total%3600/60);
+  const seconds = total%60;
+  $("days").textContent = days;
+  $("hours").textContent = String(hours).padStart(2,"0");
+  $("minutes").textContent = String(minutes).padStart(2,"0");
+  $("seconds").textContent = String(seconds).padStart(2,"0");
+}
+tick(); setInterval(tick,1000);
+</script>
+</body>
+</html>
